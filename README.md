@@ -45,23 +45,6 @@ pip install 'pertpy[tcoda]'
 
 ```
 
-## omicverse
-
-```
-mamba create -n omicverse python=3.10 -y
-
-mamba activate omicverse
-
-# 安装依赖
-mamba install nvidia::cuda-nvcc -y # 使用'nvcc --version'检查CUDA版本，曙光雄横是release 13.1, V13.1.80
-mamba install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia -y
-
-# 安装omicverse
-mamba install omicverse -c conda-forge -y
-
-mamba install ipykernel -y
-```
-
 ## TDEseq
 
 ```
@@ -111,7 +94,10 @@ module purge;module load compiler/gcc/9.3.0
 pip install cellphonedb
 
 # 下载数据库
-https://github.com/ventolab/cellphonedb-data # v5.0.0
+# https://github.com/ventolab/cellphonedb-data # v5.0.0
+# 存储路径：/work/home/acfrxahp1e/software/cpdb
+
+
 ```
 
 ## celltypist
@@ -125,15 +111,9 @@ python
 import celltypist
 from celltypist import models
 models.download_models()
+
+mamba install ipykernel -y
 ```
-
-
-
-
-
-
-
-
 
 ## Jupyter Notebook
 
@@ -158,6 +138,10 @@ conda deactivate
 
 conda activate scikit-bio
 python -m ipykernel install --name scikit-bio --display-name scikit-bio
+conda deactivate
+
+conda activate celltypist
+python -m ipykernel install --name celltypist --display-name celltypist
 conda deactivate
 
 conda activate TDEseq
