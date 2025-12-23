@@ -1,6 +1,11 @@
 # scENV
 单细胞转录组相关分析工具安装流程
-## scanpy
+
+------
+
+## Python
+
+### scanpy
 
 ```
 mamba create -n scanpy conda-forge:scanpy=1.11.5 -y
@@ -15,7 +20,15 @@ mamba install -c bioconda anndata2ri -y
 mamba install conda-forge:python-igraph -y
 ```
 
-## scvi-tools
+```
+./miniforge3/bin/conda init
+
+conda activate scanpy
+python -m ipykernel install --name scanpy --display-name scanpy
+conda deactivate
+```
+
+### scvi-tools
 
 ```
 mamba create -n scvi-tools conda-forge:scvi-tools=1.4.1 conda-forge:scanpy=1.11.5 -y
@@ -24,7 +37,7 @@ mamba activate scvi-tools
 mamba install ipykernel -y
 ```
 
-## pertpy
+### pertpy
 
 ```
 mamba create -n pertpy conda-forge:pertpy=1.0.4 conda-forge:scanpy=1.11.5 python=3.13 -y
@@ -41,11 +54,92 @@ mamba install conda-forge::rpy2 -y
 # 为了使用tcoda
 mamba install schrodinger::pyqt6 -y
 pip install 'pertpy[tcoda]'
+```
 
+```
+./miniforge3/bin/conda init
+
+conda activate pertpy
+python -m ipykernel install --name pertpy --display-name pertpy
+conda deactivate
+```
+
+### scikit-bio
+
+```
+mamba create -n scikit-bio conda-forge:scikit-bio conda-forge:scanpy=1.11.5 -y
+
+mamba activate scikit-bio
+mamba install ipykernel -y
+```
+
+```
+./miniforge3/bin/conda init
+
+conda activate scikit-bio
+python -m ipykernel install --name scikit-bio --display-name scikit-bio
+conda deactivate
+```
+
+### cellphonedb
+
+```
+mamba create -n cpdb scanpy=1.11.5 -y
+
+mamba activate cpdb
+module purge;module load compiler/gcc/9.3.0
+pip install cellphonedb
+
+# 下载数据库
+# https://github.com/ventolab/cellphonedb-data # v5.0.0
+# 存储路径：/work/home/acfrxahp1e/software/cpdb
+```
+
+### celltypist
+
+```
+mamba create -n celltypist -c bioconda -c conda-forge celltypist scanpy=1.11.5 -y
+mamba activate celltypist
+
+# 下载数据库，其实也可以手动下，默认存储在家目录下
+python
+import celltypist
+from celltypist import models
+models.download_models()
+
+mamba install ipykernel -y
+```
+
+```
+./miniforge3/bin/conda init
+
+conda activate celltypist
+python -m ipykernel install --name celltypist --display-name celltypist
+conda deactivate
+```
+
+
+
+------
+
+## R
+
+### Seurat5
 
 ```
 
-## TDEseq
+```
+
+```
+./miniforge3/bin/conda init
+
+conda activate Seurat5
+R
+IRkernel::installspec(name='Seurat5', displayname='Seurat5')
+quit()
+```
+
+### TDEseq
 
 ```
 mamba create -n TDEseq r::r-devtools -y
@@ -61,7 +155,47 @@ install_github("Efdix/TDEseq", force=TRUE)
 mamba install r-irkernel -y
 ```
 
-## sc_tools
+```
+./miniforge3/bin/conda init
+
+conda activate TDEseq
+R
+IRkernel::installspec(name='TDEseq', displayname='TDEseq')
+quit()
+```
+
+### DeepCellSeek
+
+```
+mamba create -n DeepCellSeek
+mamba activate DeepCellSeek
+
+mabma install conda-forge::r-devtools -y
+mamba install r-irkernel -y
+
+R
+devtools::install_github("ZhangLab-Kiz/DeepCellSeek")
+quit()
+
+mamba install conda-forge::r-seurat=5.4.0 -y
+mamba install conda-forge::r-tidyverse -y
+```
+
+```
+./miniforge3/bin/conda init
+
+conda activate DeepCellSeek
+R
+IRkernel::installspec(name='DeepCellSeek', displayname='DeepCellSeek')
+```
+
+
+
+------
+
+## Python&R
+
+### sc_tools
 
 ```
 mamba create -n sc_tools conda-forge:scanpy=1.11.5 -y
@@ -75,87 +209,10 @@ pip install scanpro
 mamba install ipykernel -y
 ```
 
-## scikit-bio
-
-```
-mamba create -n scikit-bio conda-forge:scikit-bio conda-forge:scanpy=1.11.5 -y
-
-mamba activate scikit-bio
-mamba install ipykernel -y
-```
-
-## cellphonedb
-
-```
-mamba create -n cpdb scanpy=1.11.5 -y
-
-mamba activate cpdb
-module purge;module load compiler/gcc/9.3.0
-pip install cellphonedb
-
-# 下载数据库
-# https://github.com/ventolab/cellphonedb-data # v5.0.0
-# 存储路径：/work/home/acfrxahp1e/software/cpdb
-
-
-```
-
-## celltypist
-
-```
-mamba create -n celltypist -c bioconda -c conda-forge celltypist scanpy=1.11.5 -y
-mamba activate celltypist
-
-# 下载数据库，其实也可以手动下，默认存储在家目录下
-python
-import celltypist
-from celltypist import models
-models.download_models()
-
-mamba install ipykernel -y
-```
-
-## Jupyter Notebook
-
 ```
 ./miniforge3/bin/conda init
-
-conda activate pertpy
-python -m ipykernel install --name pertpy --display-name pertpy
-conda deactivate
-
-conda activate omicverse
-python -m ipykernel install --name omicverse --display-name omicverse
-conda deactivate
-
-conda activate scanpy
-python -m ipykernel install --name scanpy --display-name scanpy
-conda deactivate
 
 conda activate sc_tools
 python -m ipykernel install --name sc_tools --display-name sc_tools
 conda deactivate
-
-conda activate scikit-bio
-python -m ipykernel install --name scikit-bio --display-name scikit-bio
-conda deactivate
-
-conda activate celltypist
-python -m ipykernel install --name celltypist --display-name celltypist
-conda deactivate
-
-conda activate TDEseq
-R
-IRkernel::installspec(name='TDEseq', displayname='TDEseq')
-quit()
-n
-conda deactivate
-
-conda activate Seurat5
-R
-IRkernel::installspec(name='Seurat5', displayname='Seurat5')
-quit()
-n
-conda deactivate
 ```
-
