@@ -124,6 +124,8 @@ conda deactivate
 
 ## R
 
+
+
 ### Seurat5
 
 ```
@@ -164,29 +166,49 @@ IRkernel::installspec(name='TDEseq', displayname='TDEseq')
 quit()
 ```
 
-### DeepCellSeek
+### DeepCellSeek (VS Code)
 
 ```
 mamba create -n DeepCellSeek
+mamba.exe shell hook -s powershell | Out-String | Invoke-Expression
 mamba activate DeepCellSeek
 
-mabma install conda-forge::r-devtools -y
+mamba install conda-forge::r-devtools -y
+mamba install conda-forge::r-tidyverse -y
+mamba install -c conda-forge radian -y
 mamba install r-irkernel -y
 
-R
+R.exe
 devtools::install_github("ZhangLab-Kiz/DeepCellSeek")
 quit()
 
-mamba install conda-forge::r-seurat=5.4.0 -y
-mamba install conda-forge::r-tidyverse -y
+# 为了用notebook，试了下，之后也可以删
+mamba install notebook -c conda-forge -y
+mamba install r-irkernel -y
 ```
 
 ```
-./miniforge3/bin/conda init
+# mamba.exe shell hook -s powershell | Out-String | Invoke-Expression
+# mamba activate DeepCellSeek
 
-conda activate DeepCellSeek
-R
-IRkernel::installspec(name='DeepCellSeek', displayname='DeepCellSeek')
+# 添加内核
+# R.exe -e "IRkernel::installspec(name = 'DeepCellSeek', displayname = 'R (DeepCellSeek)')" 
+# 删除内核
+# jupyter kernelspec remove deepcellseek
+```
+
+### r-base (VS Code)
+
+```
+mamba create -n r-base conda-forge::r-base=4.5.2 -y
+mamba.exe shell hook -s powershell | Out-String | Invoke-Expression
+mamba activate r-base
+
+# radian
+mamba install -c conda-forge radian -y
+
+R.exe
+install.packages(c("languageserver","lintr","styler"), repos="https://cran.rstudio.com")
 ```
 
 
