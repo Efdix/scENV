@@ -124,11 +124,13 @@ conda deactivate
 
 ## R
 
-
-
 ### Seurat5
 
 ```
+mamba create -n Seurat5 conda-forge::r-seurat=5.4.0 -y
+mamba activate Seurat5
+mamba install r-irkernel -y
+mamba install bioconda::bioconductor-scran -y
 
 ```
 
@@ -136,9 +138,27 @@ conda deactivate
 ./miniforge3/bin/conda init
 
 conda activate Seurat5
+R -e "IRkernel::installspec(name = 'Seurat5', displayname = 'Seurat5'" 
+```
+
+### Clustree
+
+```
+mamba create -n Clustree conda-forge::r-seurat=5.4.0 -y
+mamba activate Clustree
+mamba install r-irkernel -y
+
+mamba install -c conda-forge r-tweenr r-systemfonts r-ggforce r-graphlayouts r-backports r-ggraph r-checkmate r-viridis r-tidygraph -y
+
 R
-IRkernel::installspec(name='Seurat5', displayname='Seurat5')
-quit()
+install.packages("clustree") #下载时选18合肥线比较顺利
+```
+
+```
+./miniforge3/bin/conda init
+
+conda activate Clustree
+R -e "IRkernel::installspec(name = 'Clustree', displayname = 'Clustree'" 
 ```
 
 ### TDEseq
@@ -192,7 +212,7 @@ mamba install r-irkernel -y
 # mamba activate DeepCellSeek
 
 # 添加内核
-# R.exe -e "IRkernel::installspec(name = 'DeepCellSeek', displayname = 'R (DeepCellSeek)')" 
+R.exe -e "IRkernel::installspec(name = 'DeepCellSeek', displayname = 'R (DeepCellSeek)')" 
 # 删除内核
 # jupyter kernelspec remove deepcellseek
 ```
