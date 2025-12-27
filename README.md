@@ -190,7 +190,6 @@ quit()
 
 ```
 mamba create -n DeepCellSeek
-mamba.exe shell hook -s powershell | Out-String | Invoke-Expression
 mamba activate DeepCellSeek
 
 mamba install conda-forge::r-devtools -y
@@ -207,31 +206,24 @@ mamba install notebook -c conda-forge -y
 mamba install r-irkernel -y
 ```
 
-```
-# mamba.exe shell hook -s powershell | Out-String | Invoke-Expression
-# mamba activate DeepCellSeek
-
-# 添加内核
-R.exe -e "IRkernel::installspec(name = 'DeepCellSeek', displayname = 'R (DeepCellSeek)')" 
-# 删除内核
-# jupyter kernelspec remove deepcellseek
-```
-
 ### r-base (VS Code)
 
 ```
 mamba create -n r-base conda-forge::r-base=4.5.2 -y
-mamba.exe shell hook -s powershell | Out-String | Invoke-Expression
 mamba activate r-base
 
-# radian
-mamba install -c conda-forge radian -y
+# 为了用notebook，试了下，之后也可以删
+mamba install notebook -c conda-forge -y
+mamba install r-irkernel -y
 
-R.exe
-install.packages(c("languageserver","lintr","styler"), repos="https://cran.rstudio.com")
+
+
+mamba install r::r-ggvenndiagram -y
+mamba install r::r-patchwork -y
+mamba install conda-forge::r-tidyverse -y
+mamba install conda-forge::r-eulerr -y
+mamba install conda-forge::r-gridextra -y
 ```
-
-
 
 ------
 
@@ -258,3 +250,20 @@ conda activate sc_tools
 python -m ipykernel install --name sc_tools --display-name sc_tools
 conda deactivate
 ```
+
+## VS Code
+
+### 自动加载mamba环境
+
+```
+# 在 PowerShell 中运行以下命令，查看当前用户的配置文件路径：
+$PROFILE
+# 使用文本编辑器（如 VS Code 或 Notepad）打开配置文件：
+code $PROFILE # D:\System\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
+# 在配置文件中添加以下内容：
+mamba.exe shell hook -s powershell | Out-String | Invoke-Expression
+
+# 保存并关闭配置文件
+# 重新启动 PowerShell
+```
+
