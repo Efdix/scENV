@@ -212,11 +212,9 @@ mamba install r-irkernel -y
 mamba create -n r-base conda-forge::r-base=4.5.2 -y
 mamba activate r-base
 
-# 为了用notebook，试了下，之后也可以删
+# notebook
 mamba install notebook -c conda-forge -y
 mamba install r-irkernel -y
-
-
 
 mamba install r::r-ggvenndiagram -y
 mamba install r::r-patchwork -y
@@ -224,6 +222,25 @@ mamba install conda-forge::r-tidyverse -y
 mamba install conda-forge::r-eulerr -y
 mamba install conda-forge::r-gridextra -y
 ```
+
+### Enrich (VS Code)
+
+```
+mamba create -n Enrich conda-forge::r-base=4.5.2 -y
+mamba activate Enrich
+
+# notebook
+mamba install notebook -c conda-forge -y
+mamba install r-irkernel -y
+
+mamba install conda-forge::r-tidyverse -y
+
+R.exe
+install.packages("BiocManager")
+BiocManager::install("clusterProfiler")
+```
+
+
 
 ------
 
