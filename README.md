@@ -90,9 +90,33 @@ mamba activate cpdb
 module purge;module load compiler/gcc/9.3.0
 pip install cellphonedb
 
-# 下载数据库
+
+# 下载数据库，注意要解压后其中的cellphonedb.zip才是真正的数据库，不能直接用cellphonedb-data-5.0.0.zip
 # https://github.com/ventolab/cellphonedb-data # v5.0.0
-# 存储路径：/work/home/acfrxahp1e/software/cpdb
+# 存储路径：/work/home/acfrxahp1e/software/cpdb/db/v5/cellphonedb.zip
+
+mamba install ipykernel -y
+```
+
+```
+./miniforge3/bin/conda init
+
+conda activate cpdb
+python -m ipykernel install --name cpdb --display-name cpdb
+conda deactivate
+```
+
+### cellphonedb (VS Code)
+
+```
+mamba create -n cpdb -c tttpob -c bioconda -c conda-forge cellphonedb=5.0.1 scanpy=1.11.5 -y # Windows下似乎python不能3.14只能3.12
+
+# 下载数据库cellphonedb-data-5.0.0.zip，注意要解压后其中的cellphonedb.zip才是真正的数据库，不能直接用cellphonedb-data-5.0.0.zip
+# https://github.com/ventolab/cellphonedb-data # v5.0.0
+# 存储路径：D:/System/Documents/GitHub/CellphoneDB/notebooks/data_tutorial/db/v5/cellphonedb.zip
+
+mamba install notebook -c conda-forge -y
+mamba install ipykernel -y
 ```
 
 ### celltypist
