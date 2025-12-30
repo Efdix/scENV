@@ -292,6 +292,19 @@ python -m ipykernel install --name sc_tools --display-name sc_tools
 conda deactivate
 ```
 
+# Bash
+
+## OrthoFinder
+
+```
+mamba create -n of3_env python=3.10 -y
+mamba activate of3_env
+mamba install bioconda::orthofinder -y
+
+```
+
+
+
 ## VS Code
 
 ### 自动加载mamba环境
