@@ -47,6 +47,7 @@ mamba install ipykernel -y
 
 # 为了进行差异分析
 pip install 'pertpy[de]'
+pip install pydeseq2
 
 # 为了用edger
 mamba install conda-forge::rpy2 -y
@@ -61,6 +62,28 @@ pip install 'pertpy[tcoda]'
 
 conda activate pertpy
 python -m ipykernel install --name pertpy --display-name pertpy
+conda deactivate
+```
+
+### scanpro
+
+```
+mamba create -n scanpro conda-forge:scanpy=1.11.5 -y
+
+mamba activate scanpro
+
+# 细胞比例工具
+module purge;module load compiler/gcc/9.3.0 #gcc版本不对导致pip连一些基础的东西都装不上
+pip install scanpro
+
+mamba install ipykernel -y
+```
+
+```
+./miniforge3/bin/conda init
+
+conda activate scanpro
+python -m ipykernel install --name scanpro --display-name scanpro
 conda deactivate
 ```
 
@@ -268,33 +291,11 @@ BiocManager::install("clusterProfiler")
 
 ------
 
-## Python&R
 
-### sc_tools
 
-```
-mamba create -n sc_tools conda-forge:scanpy=1.11.5 -y
+## Bash
 
-mamba activate sc_tools
-
-# 细胞比例工具
-module purge;module load compiler/gcc/9.3.0 #gcc版本不对导致pip连一些基础的东西都装不上
-pip install scanpro
-
-mamba install ipykernel -y
-```
-
-```
-./miniforge3/bin/conda init
-
-conda activate sc_tools
-python -m ipykernel install --name sc_tools --display-name sc_tools
-conda deactivate
-```
-
-# Bash
-
-## OrthoFinder
+### OrthoFinder
 
 ```
 mamba create -n of3_env python=3.10 -y
@@ -321,3 +322,9 @@ mamba.exe shell hook -s powershell | Out-String | Invoke-Expression
 # 重新启动 PowerShell
 ```
 
+## Jupyter
+
+```
+jupyter kernelspec list # 查看添加了哪些内核
+jupyter kernelspec uninstall xxx -y # 删除xxx内核（注意替换xxx）
+```
