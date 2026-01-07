@@ -65,6 +65,17 @@ python -m ipykernel install --name pertpy --display-name pertpy
 conda deactivate
 ```
 
+### pertpy (VS Code)
+
+```
+mamba create -n pertpy conda-forge:scanpy=1.11.5 python=3.13 -y
+
+mamba activate pertpy
+pip install scikit-misc
+pip install pertpy
+pip install pydeseq2
+```
+
 ### scanpro
 
 ```
@@ -164,8 +175,9 @@ conda activate celltypist
 python -m ipykernel install --name celltypist --display-name celltypist
 conda deactivate
 ```
-
-
+### base (VS Code)
+```
+```
 
 ------
 
