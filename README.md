@@ -177,6 +177,7 @@ conda deactivate
 ```
 ### base (VS Code)
 ```
+mamba install pandas -y
 ```
 
 ------
