@@ -18,6 +18,9 @@ mamba install -c bioconda anndata2ri -y
 
 # 为了聚类
 mamba install conda-forge:python-igraph -y
+
+# 为了高变基因
+mamba install conda-forge::scikit-misc -y
 ```
 
 ```
@@ -35,6 +38,8 @@ mamba create -n scvi-tools conda-forge:scvi-tools=1.4.1 conda-forge:scanpy=1.11.
 
 mamba activate scvi-tools
 mamba install ipykernel -y
+
+mamba install conda-forge::scikit-misc -y
 ```
 
 ### pertpy
@@ -178,7 +183,29 @@ conda deactivate
 ### base (VS Code)
 ```
 mamba install pandas -y
+mamba install conda-forge::pandoc -y
+mamba install bioconda::pysradb -y
 ```
+
+### chatcellanno (VS Code)
+
+```
+# 1. 创建新环境 (Python 3.9 或 3.10 均可)
+mamba create -n chatcellanno python=3.9 -y
+
+# 2. 激活环境
+conda activate chatcellanno
+
+# 3. 安装必要的轻量级依赖
+mamba install pandas pyperclip pyinstaller openpyxl -y 
+pip install windnd
+# (安装 openpyxl 是为了支持未来可能读取 excel，目前 pandas 需要它)
+
+# 4. 确保 tkinter 已安装 (通常 python 自带，如果没有报错则跳过)
+python -c "import tkinter; print('Tkinter OK')"
+```
+
+
 
 ------
 
@@ -317,7 +344,18 @@ mamba install bioconda::orthofinder -y
 
 ```
 
+### SRA Toolkit
 
+```
+wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.2.0/sratoolkit.3.2.0-centos_linux64.tar.gz #下载3.2.0版，曙光不支持最新版
+tar -zxvf sratoolkit.3.2.0-centos_linux64.tar.gz
+rm sratoolkit.3.2.0-centos_linux64.tar.gz
+export PATH=$PWD/sratoolkit.3.2.0-centos_linux64/bin:$PATH #注意PWD的路径是否正确
+```
+### Base
+```
+mamba install pigz -y
+```
 
 ## VS Code
 
