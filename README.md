@@ -40,8 +40,15 @@ mamba activate scvi-tools
 mamba install ipykernel -y
 
 mamba install conda-forge::scikit-misc -y
+mamba install -c conda-forge python-igraph -y
 ```
+```
+./miniforge3/bin/conda init
 
+conda activate scvi-tools
+python -m ipykernel install --name scvi-tools --display-name scvi-tools
+conda deactivate
+```
 ### pertpy
 
 ```
