@@ -41,6 +41,9 @@ mamba install ipykernel -y
 
 mamba install conda-forge::scikit-misc -y
 mamba install -c conda-forge python-igraph -y
+
+module purge;module load compiler/gcc/9.3.0
+pip install scib-metrics
 ```
 ```
 ./miniforge3/bin/conda init
@@ -234,6 +237,24 @@ mamba install bioconda::bioconductor-scran -y
 conda activate Seurat5
 R -e "IRkernel::installspec(name = 'Seurat5', displayname = 'Seurat5'" 
 ```
+
+### Monocle3
+
+```
+mamba create -n Monocle3 conda-forge::r-seurat=5.4.0  -y
+mamba activate Monocle3
+mamba install bioconda::r-monocle3=1.4.26 -y
+mamba install r-irkernel -y
+```
+
+```
+./miniforge3/bin/conda init
+
+conda activate Monocle3
+R -e "IRkernel::installspec(name = 'Monocle3', displayname = 'Monocle3'" 
+```
+
+
 
 ### Clustree
 
