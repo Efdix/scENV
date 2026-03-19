@@ -44,6 +44,10 @@ mamba install -c conda-forge python-igraph -y
 
 module purge;module load compiler/gcc/9.3.0
 pip install scib-metrics
+
+# 交互式
+mamba install conda-forge::plotly -y
+mamba install conda-forge::nbformat -y
 ```
 ```
 ./miniforge3/bin/conda init
@@ -195,6 +199,7 @@ conda deactivate
 mamba install pandas -y
 mamba install conda-forge::pandoc -y
 mamba install bioconda::pysradb -y
+pip install biopython
 ```
 
 ### chatcellanno (VS Code)
@@ -208,11 +213,33 @@ conda activate chatcellanno
 
 # 3. 安装必要的轻量级依赖
 mamba install pandas pyperclip pyinstaller openpyxl -y 
-pip install windnd
+#pip install windnd （改为pyside6后就不需要这个了）
 # (安装 openpyxl 是为了支持未来可能读取 excel，目前 pandas 需要它)
 
 # 4. 确保 tkinter 已安装 (通常 python 自带，如果没有报错则跳过)
 python -c "import tkinter; print('Tkinter OK')"
+
+# 5. 界面化
+mamba install main::pyside6 -y
+
+pip install gseapy # 不能用mamba，bioconda上的有问题
+```
+
+### Word-Palace (VS Code)
+
+```
+mamba create -n word-palace -y
+mamba activate word-palace
+mamba install pip -y
+
+pip install customtkinter keyboard pyperclip requests pystray pillow
+pip install -i https://mirrors.tencent.com/pypi/simple/ --upgrade tencentcloud-sdk-python
+```
+
+### 
+
+```
+
 ```
 
 
