@@ -194,7 +194,28 @@ conda activate celltypist
 python -m ipykernel install --name celltypist --display-name celltypist
 conda deactivate
 ```
+### pySCENIC
+
+```
+mamba create -n pyscenic python=3.10 -y
+mamba activate pyscenic
+
+module purge;module load compiler/gcc/9.3.0
+pip install pyscenic
+```
+
+```
+./miniforge3/bin/conda init
+
+conda activate pyscenic
+python -m ipykernel install --name pyscenic --display-name pyscenic
+conda deactivate
+```
+
+
+
 ### base (VS Code)
+
 ```
 mamba install pandas -y
 mamba install conda-forge::pandoc -y
