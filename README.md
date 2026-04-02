@@ -21,6 +21,11 @@ mamba install conda-forge:python-igraph -y
 
 # 为了高变基因
 mamba install conda-forge::scikit-misc -y
+
+# 为了转成 R 格式 easySCF
+module purge;module load compiler/gcc/9.3.0
+mamba install scipy -y
+pip install --upgrade --force-reinstall git+https://github.com/Efdix/easySCF.git#subdirectory=py
 ```
 
 ```
@@ -74,6 +79,9 @@ mamba install conda-forge::rpy2 -y
 # 为了使用tcoda
 mamba install schrodinger::pyqt6 -y
 pip install 'pertpy[tcoda]'
+
+# 画图
+mamba install galaxy001::matplotlib_venn -y
 ```
 
 ```
@@ -257,10 +265,47 @@ pip install customtkinter keyboard pyperclip requests pystray pillow
 pip install -i https://mirrors.tencent.com/pypi/simple/ --upgrade tencentcloud-sdk-python
 ```
 
-### 
+### CellRank
 
 ```
+mamba create -n cellrank -y
+mamba activate cellrank
 
+mamba install pip -y
+mamba install uv -y
+
+mamba isntall scikit-learn -y
+mamba install conda-forge::h5py -y
+mamba install pandas=2.3.3 -y
+mamba install contourpy=1.3.3 -y
+mamba install matplotlib==3.10.8 -y
+
+
+uv pip install cellrank
+```
+
+
+
+### Eggnog-Mapper
+
+```
+mamba create -n eggnog-mapper -c bioconda eggnog-mapper -y
+mamba activate eggnog-mapper
+
+# R
+mamba install r::r-tidyverse -y
+mamba install bioconda::bioconductor-annotationforge -y
+mamba install bioconda::bioconductor-s4vectors=0.48.0 -y
+mamba install bioconda::bioconductor-go.db -y
+
+mamba install r-irkernel -y
+```
+
+```
+./miniforge3/bin/conda init
+
+conda activate eggnog-mapper
+R -e "IRkernel::installspec(name = 'eggnog-mapper', displayname = 'eggnog-mapper')" 
 ```
 
 
@@ -274,16 +319,17 @@ pip install -i https://mirrors.tencent.com/pypi/simple/ --upgrade tencentcloud-s
 ```
 mamba create -n Seurat5 conda-forge::r-seurat=5.4.0 -y
 mamba activate Seurat5
-mamba install r-irkernel -y
+
 mamba install bioconda::bioconductor-scran -y
 
+mamba install r-irkernel -y
 ```
 
 ```
 ./miniforge3/bin/conda init
 
 conda activate Seurat5
-R -e "IRkernel::installspec(name = 'Seurat5', displayname = 'Seurat5'" 
+R -e "IRkernel::installspec(name = 'Seurat5', displayname = 'Seurat5')" 
 ```
 
 ### Monocle3
@@ -299,7 +345,7 @@ mamba install r-irkernel -y
 ./miniforge3/bin/conda init
 
 conda activate Monocle3
-R -e "IRkernel::installspec(name = 'Monocle3', displayname = 'Monocle3'" 
+R -e "IRkernel::installspec(name = 'Monocle3', displayname = 'Monocle3')" 
 ```
 
 
@@ -321,21 +367,31 @@ install.packages("clustree") #下载时选18合肥线比较顺利
 ./miniforge3/bin/conda init
 
 conda activate Clustree
-R -e "IRkernel::installspec(name = 'Clustree', displayname = 'Clustree'" 
+R -e "IRkernel::installspec(name = 'Clustree', displayname = 'Clustree')" 
 ```
 
 ### TDEseq
 
 ```
 mamba create -n TDEseq r::r-devtools -y
-
 mamba activate TDEseq
-mamba install r::r-coneproj -y
+
+# 为了读取 h5 easySCF
+R
+devtools::install_github("Efdix/easySCF/r")
+quit()
+mamba install r::r-base=4.5.3 -y
+mamba install r::r-hdf5r -y
 mamba install r::r-matrix -y
 
+# 安装
+mamba install r::r-coneproj -y
+
 R
-library(devtools)
-install_github("Efdix/TDEseq", force=TRUE)
+devtools::install_github("Efdix/TDEseq", force=TRUE)
+quit()
+
+mamba install r::r-pbmcapply -y
 
 mamba install r-irkernel -y
 ```
@@ -376,8 +432,8 @@ mamba create -n r-base conda-forge::r-base=4.5.2 -y
 mamba activate r-base
 
 # notebook
-mamba install notebook -c conda-forge -y
-mamba install r-irkernel -y
+    mamba install notebook -c conda-forge -y
+    mamba install r-irkernel -y
 
 mamba install r::r-ggvenndiagram -y
 mamba install r::r-patchwork -y
@@ -401,6 +457,25 @@ mamba install conda-forge::r-tidyverse -y
 R.exe
 install.packages("BiocManager")
 BiocManager::install("clusterProfiler")
+```
+
+### Enrich
+
+```
+mamba create -n Enrich conda-forge::r-base=4.5.3 -y
+mamba activate Enrich
+
+mamba install conda-forge::r-tidyverse -y
+mamba install bioconda::bioconductor-clusterprofiler -y
+
+mamba install r-irkernel -y
+```
+
+```
+./miniforge3/bin/conda init
+
+conda activate Enrich
+R -e "IRkernel::installspec(name = 'Enrich', displayname = 'Enrich')" 
 ```
 
 
