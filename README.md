@@ -29,7 +29,7 @@ pip install --upgrade --force-reinstall git+https://github.com/Efdix/easySCF.git
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate scanpy
 python -m ipykernel install --name scanpy --display-name scanpy
@@ -55,7 +55,7 @@ mamba install conda-forge::plotly -y
 mamba install conda-forge::nbformat -y
 ```
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate scvi-tools
 python -m ipykernel install --name scvi-tools --display-name scvi-tools
@@ -85,7 +85,7 @@ mamba install galaxy001::matplotlib_venn -y
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate pertpy
 python -m ipykernel install --name pertpy --display-name pertpy
@@ -118,7 +118,7 @@ mamba install ipykernel -y
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate scanpro
 python -m ipykernel install --name scanpro --display-name scanpro
@@ -135,7 +135,7 @@ mamba install ipykernel -y
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate scikit-bio
 python -m ipykernel install --name scikit-bio --display-name scikit-bio
@@ -160,7 +160,7 @@ mamba install ipykernel -y
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate cpdb
 python -m ipykernel install --name cpdb --display-name cpdb
@@ -196,7 +196,7 @@ mamba install ipykernel -y
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate celltypist
 python -m ipykernel install --name celltypist --display-name celltypist
@@ -213,7 +213,7 @@ pip install pyscenic
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate pyscenic
 python -m ipykernel install --name pyscenic --display-name pyscenic
@@ -279,9 +279,28 @@ mamba install conda-forge::h5py -y
 mamba install pandas=2.3.3 -y
 mamba install contourpy=1.3.3 -y
 mamba install matplotlib==3.10.8 -y
-
-
 uv pip install cellrank
+
+# 为了RNA速率
+mamba install conda-forge::scvelo -y
+mamba install conda-forge::loompy -y
+
+mamba install ipykernel -y
+```
+
+```
+/work/home/acfrxahp1e/miniforge3/bin/conda init
+
+conda activate cellrank
+python -m ipykernel install --name cellrank --display-name cellrank
+conda deactivate
+```
+
+### Velocyto
+
+```
+# velocyto
+mamba create -n velocyto numpy scipy cython numba matplotlib scikit-learn h5py click bioconda::velocyto.py -y
 ```
 
 
@@ -302,7 +321,7 @@ mamba install r-irkernel -y
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate eggnog-mapper
 R -e "IRkernel::installspec(name = 'eggnog-mapper', displayname = 'eggnog-mapper')" 
@@ -326,7 +345,7 @@ mamba install r-irkernel -y
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate Seurat5
 R -e "IRkernel::installspec(name = 'Seurat5', displayname = 'Seurat5')" 
@@ -342,7 +361,7 @@ mamba install r-irkernel -y
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate Monocle3
 R -e "IRkernel::installspec(name = 'Monocle3', displayname = 'Monocle3')" 
@@ -364,7 +383,7 @@ install.packages("clustree") #下载时选18合肥线比较顺利
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate Clustree
 R -e "IRkernel::installspec(name = 'Clustree', displayname = 'Clustree')" 
@@ -397,7 +416,7 @@ mamba install r-irkernel -y
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate TDEseq
 R
@@ -472,7 +491,7 @@ mamba install r-irkernel -y
 ```
 
 ```
-./miniforge3/bin/conda init
+/work/home/acfrxahp1e/miniforge3/bin/conda init
 
 conda activate Enrich
 R -e "IRkernel::installspec(name = 'Enrich', displayname = 'Enrich')" 
@@ -507,6 +526,36 @@ export PATH=$PWD/sratoolkit.3.2.0-centos_linux64/bin:$PATH #注意PWD的路径�
 ```
 mamba install pigz -y
 ```
+
+### RepeatMasker
+
+```
+mamba create -n repeatmasker bioconda::repeatmodeler=2.0.7 bioconda::repeatmasker -y # 不一起装容易导致python版本过高
+mamba activate repeatmasker
+
+# 安装搜索repeats的软件，有多个选择：Cross_Match、RMBlast and WUBlast/ABBlast等，这里用RMBlast和hmmer
+mamba install bioconda::rmblast=2.14.1 -y
+mamba install bioconda::hmmer -y
+
+# https://www.repeatmasker.org/RepeatMasker 下载repeatmasker源码
+tar -xvzf RepeatMasker-4.2.3.tar.gz
+cd /work/home/acfrxahp1e/zhaohz/software/RepeatMasker
+./configure
+# 回车后填入TRF路径，正常应该在第一步mamba时已经被安装了，大概率是
+/work/home/acfrxahp1e/miniforge3/envs/repeatmasker/bin/trf
+# 选RMBlast并填入路径/work/home/acfrxahp1e/miniforge3/envs/repeatmasker/bin，注意末尾不要带上软件名
+# 选hmmer并填入/work/home/acfrxahp1e/miniforge3/envs/repeatmasker/bin
+# 不要把hmmer设为默认
+```
+
+### STAR
+
+```
+mamba create -n star bioconda::star -y
+mamba activate star
+```
+
+
 
 ## VS Code
 
