@@ -285,6 +285,9 @@ uv pip install cellrank
 mamba install conda-forge::scvelo -y
 mamba install conda-forge::loompy -y
 
+# 为了拟时序
+mamba install -c conda-forge -c bioconda palantir -y
+
 mamba install ipykernel -y
 ```
 
