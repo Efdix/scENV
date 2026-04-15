@@ -288,6 +288,9 @@ mamba install conda-forge::loompy -y
 # 为了拟时序
 mamba install -c conda-forge -c bioconda palantir -y
 
+# 为了cytotrace
+pip install cellmapper
+
 mamba install ipykernel -y
 ```
 
